@@ -1,4 +1,4 @@
-# Notebook per l'anailisi IRT del Bebras italiano 2015
+# Notebook per l'analisi IRT del Bebras italiano 2015
 
 ## Avvertenze
 
