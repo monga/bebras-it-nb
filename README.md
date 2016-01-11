@@ -15,9 +15,9 @@ Per modificare il notebook viene fornito un `Dockerfile` che permette
 di avere un'istanza Jupyter con R (e rstan).
 
 
-	docker build -t r-notebook .
-	docker run --rm -it -p 127.0.0.1:8888:8888 --user root --name mynotebook -v "$(pwd):/notebooks" r-notebook
-	docker exec mynotebook git pull
-	docker exec mynotebook git lfs pull
+    docker build -t r-notebook .
+    git clone https://github.com/monga/bebras-it-nb.git
+	cd bebras-it-nb
+	docker run --rm -it -p 127.0.0.1:8888:8888 --user root --name mynotebook -v "$(pwd):/home/jovyan/work/bebras-it-nb" r-notebook
 	x-www-browser http://localhost:8888
 	
