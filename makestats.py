@@ -45,8 +45,15 @@ STAT="""
     "p <- p + geom_histogram(binwidth=0.1*sd(d$value)) \\n",
     "p <- p + aes(y=..density..)\\n",
     "p <- p + facet_grid(. ~ category)\\n",
-    "p\\n",
+    "ggsave(filename = 'd-{paese}.png', plot = p, width = 10, height = 2)\\n",
     "summary(d$value)"
+   ]
+  }},
+  {{
+   "cell_type": "markdown",
+   "metadata": {{}},
+   "source": [
+    "![d-{paese}](d-{paese}.png)"
    ]
   }},
   {{
@@ -69,8 +76,15 @@ STAT="""
     "p <- p + geom_histogram(binwidth=0.1*sd(a$value)) \\n",
     "p <- p + aes(y=..density..)\\n",
     "p <- p + facet_grid(. ~ category)\\n",
-    "p\\n",
+    "ggsave(filename = 'a-{paese}.png', plot = p, width = 10, height = 2)\\n",
     "summary(a$value)"
+   ]
+  }},
+  {{
+   "cell_type": "markdown",
+   "metadata": {{}},
+   "source": [
+    "![a-{paese}](a-{paese}.png)"
    ]
   }},
   {{
@@ -93,8 +107,15 @@ STAT="""
     "p <- p + geom_histogram(binwidth=0.1*sd(g$value)) \\n",
     "p <- p + aes(y=..density..)\\n",
     "p <- p + facet_grid(. ~ category)\\n",
-    "p\\n",
+    "ggsave(filename = 'g-{paese}.png', plot = p, width = 10, height = 2)\\n",
     "summary(g$value)"
+   ]
+  }},
+  {{
+   "cell_type": "markdown",
+   "metadata": {{}},
+   "source": [
+    "![g-{paese}](g-{paese}.png)"
    ]
   }},
   {{
@@ -121,6 +142,14 @@ STAT="""
     "  p <- p + geom_line(aes(y=logistic(x, a=d$value[i], b=a$value[i], c=g$value[i])))\\n",
     "}}\\n",
     "p"
+    "ggsave(filename = 'l-{paese}.png', plot = p, width = 6, height = 6)\\n",
+   ]
+  }},
+  {{
+   "cell_type": "markdown",
+   "metadata": {{}},
+   "source": [
+    "![l-{paese}](l-{paese}.png)"
    ]
   }},
 """
