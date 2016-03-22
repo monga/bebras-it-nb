@@ -141,8 +141,7 @@ STAT="""
     "for (i in 1:length(d$value)) {{\\n",
     "  p <- p + geom_line(aes(y=logistic(x, a=d$value[i], b=a$value[i], c=g$value[i])))\\n",
     "}}\\n",
-    "p"
-    "ggsave(filename = 'l-{paese}.png', plot = p, width = 6, height = 6)\\n",
+    "ggsave(filename = 'l-{paese}.png', plot = p, width = 6, height = 6)"
    ]
   }},
   {{
