@@ -40,12 +40,15 @@ STAT="""
    }},
    "outputs": [],
    "source": [
+    "if (!file.exists('img/d-{paese}.png')) {{\\n",
     "options(repr.plot.width=10, repr.plot.height=2)\\n",
     "p <- ggplot(d, aes(x=value))\\n",
     "p <- p + geom_histogram(binwidth=0.1*sd(d$value)) \\n",
     "p <- p + aes(y=..density..)\\n",
     "p <- p + facet_grid(. ~ category)\\n",
-    "ggsave(filename = 'd-{paese}.png', plot = p, width = 10, height = 2)\\n",
+    "ggsave(filename = 'img/d-{paese}.png', plot = p, width = 10, height = 2)\\n",
+    "rm(p)\\n",
+    "}}\\n",
     "summary(d$value)"
    ]
   }},
@@ -53,7 +56,7 @@ STAT="""
    "cell_type": "markdown",
    "metadata": {{}},
    "source": [
-    "![d-{paese}](d-{paese}.png)"
+    "![d-{paese}](img/d-{paese}.png)"
    ]
   }},
   {{
@@ -71,12 +74,15 @@ STAT="""
    }},
    "outputs": [],
    "source": [
+    "if (!file.exists('img/a-{paese}.png')) {{\\n",
     "options(repr.plot.width=10, repr.plot.height=2)\\n",
     "p <- ggplot(a, aes(x=value))\\n",
     "p <- p + geom_histogram(binwidth=0.1*sd(a$value)) \\n",
     "p <- p + aes(y=..density..)\\n",
     "p <- p + facet_grid(. ~ category)\\n",
-    "ggsave(filename = 'a-{paese}.png', plot = p, width = 10, height = 2)\\n",
+    "ggsave(filename = 'img/a-{paese}.png', plot = p, width = 10, height = 2)\\n",
+    "rm(p)\\n",
+    "}}\\n",
     "summary(a$value)"
    ]
   }},
@@ -84,7 +90,7 @@ STAT="""
    "cell_type": "markdown",
    "metadata": {{}},
    "source": [
-    "![a-{paese}](a-{paese}.png)"
+    "![a-{paese}](img/a-{paese}.png)"
    ]
   }},
   {{
@@ -102,12 +108,15 @@ STAT="""
    }},
    "outputs": [],
    "source": [
+    "if (!file.exists('img/g-{paese}.png')) {{\\n",
     "options(repr.plot.width=10, repr.plot.height=2)\\n",
     "p <- ggplot(g, aes(x=value))\\n",
     "p <- p + geom_histogram(binwidth=0.1*sd(g$value)) \\n",
     "p <- p + aes(y=..density..)\\n",
     "p <- p + facet_grid(. ~ category)\\n",
-    "ggsave(filename = 'g-{paese}.png', plot = p, width = 10, height = 2)\\n",
+    "ggsave(filename = 'img/g-{paese}.png', plot = p, width = 10, height = 2)\\n",
+    "rm(p)\\n",
+    "}}\\n",
     "summary(g$value)"
    ]
   }},
@@ -115,7 +124,7 @@ STAT="""
    "cell_type": "markdown",
    "metadata": {{}},
    "source": [
-    "![g-{paese}](g-{paese}.png)"
+    "![g-{paese}](img/g-{paese}.png)"
    ]
   }},
   {{
@@ -133,22 +142,35 @@ STAT="""
    }},
    "outputs": [],
    "source": [
+    "if (!file.exists('img/l-{paese}.png')) {{\\n",
     "data <- data.frame(x=seq(-5,5,.1))\\n",
     "options(repr.plot.width=6, repr.plot.height=6)\\n",
     "p <- ggplot(data, aes(x=x))\\n",
     "p <- p + scale_x_continuous()\\n",
     "p <- p + geom_hline(yintercept=0.5, linetype=\\"dashed\\")\\n",
+    "p <- p + geom_vline(xintercept=0.0, linetype=\\"dashed\\")\\n",
+    "dall <- data.frame()\\n",
     "for (i in 1:length(d$value)) {{\\n",
-    "  p <- p + geom_line(aes(y=logistic(x, a=d$value[i], b=a$value[i], c=g$value[i])))\\n",
+    " ldata <- bind_cols(data,  data.frame(a=rep(d$value[i], times=length(data$x)),\\n",
+    "                                      b=rep(a$value[i], times=length(data$x)),\\n",
+    "                                      c=rep(g$value[i], times=length(data$x)),\\n",
+    "                                      category=rep(d$category[i], times=length(data$x))\\n",
+    "                                   ))\\n",
+    " ldata <- mutate(ldata, y = logistic(x, a, b, c))\\n",
+    "  dall <- bind_rows(dall, ldata)\\n",
     "}}\\n",
-    "ggsave(filename = 'l-{paese}.png', plot = p, width = 6, height = 6)"
+    " p <- p + geom_point(data=dall, aes(x=x, y=y)) + geom_smooth(data=dall, aes(x=x, y=y))\\n",
+    " p <- p + facet_grid(. ~ category)\\n",
+    " ggsave(filename = 'img/l-{paese}.png', plot = p, width = 6, height = 6)\\n",
+    " rm(data, dall, ldata, p)\\n",
+    "}}"
    ]
   }},
   {{
    "cell_type": "markdown",
    "metadata": {{}},
    "source": [
-    "![l-{paese}](l-{paese}.png)"
+    "![l-{paese}](img/l-{paese}.png)"
    ]
   }},
 """
