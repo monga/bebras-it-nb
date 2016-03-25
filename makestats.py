@@ -46,6 +46,7 @@ STAT="""
     "p <- p + geom_histogram(binwidth=0.1*sd(d$value)) \\n",
     "p <- p + aes(y=..density..)\\n",
     "p <- p + facet_grid(. ~ category)\\n",
+    "p <- p + labs(title='{paese} (distribuzione difficoltà)', x='Difficoltà')\\n",
     "ggsave(filename = 'img/d-{paese}.png', plot = p, width = 10, height = 2)\\n",
     "rm(p)\\n",
     "}}\\n",
@@ -80,6 +81,7 @@ STAT="""
     "p <- p + geom_histogram(binwidth=0.1*sd(a$value)) \\n",
     "p <- p + aes(y=..density..)\\n",
     "p <- p + facet_grid(. ~ category)\\n",
+    "p <- p + labs(title='{paese} (distribuzione differenziazione)', x='Differenziazione')\\n",
     "ggsave(filename = 'img/a-{paese}.png', plot = p, width = 10, height = 2)\\n",
     "rm(p)\\n",
     "}}\\n",
@@ -114,6 +116,7 @@ STAT="""
     "p <- p + geom_histogram(binwidth=0.1*sd(g$value)) \\n",
     "p <- p + aes(y=..density..)\\n",
     "p <- p + facet_grid(. ~ category)\\n",
+    "p <- p + labs(title='{paese} (distribuzione guessing)', x='Probabilità minima di successo')\\n",
     "ggsave(filename = 'img/g-{paese}.png', plot = p, width = 10, height = 2)\\n",
     "rm(p)\\n",
     "}}\\n",
@@ -161,7 +164,8 @@ STAT="""
     "}}\\n",
     " p <- p + geom_point(data=dall, aes(x=x, y=y)) + geom_smooth(data=dall, aes(x=x, y=y))\\n",
     " p <- p + facet_grid(. ~ category)\\n",
-    " ggsave(filename = 'img/l-{paese}.png', plot = p, width = 6, height = 6)\\n",
+    "p <- p + labs(title='{paese}', x='Abilità', y='Probabilità di successo')\\n",
+    "ggsave(filename = 'img/l-{paese}.png', plot = p, width = 6, height = 6)\\n",
     " rm(data, dall, ldata, p)\\n",
     "}}"
    ]
